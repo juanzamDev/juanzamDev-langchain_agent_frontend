@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.titleSide{
+    font-family: "Kode Mono", monospace;
+    font-optical-sizing: auto;
+    font-size: small;
+}
+.descriptionSide{
+    font-family: "Kode Mono", monospace;
+    font-size: small;
+}
