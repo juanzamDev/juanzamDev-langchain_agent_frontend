@@ -10,14 +10,13 @@ const ChatBot = ({ open, openT }) => {
 
   const [response, setResponse] = useState(false);
   const [ query, setQuery] = useState("");
-  const files = []
+  const [files, setFiles] = useState([]);
   
   const handleChange = (e) => {
     setQuery(e.target.value)
   }
 
   const submitHandler = () => {
-
     tenderAgentQuery(query, files)
     setResponse(true);
   }
@@ -40,19 +39,14 @@ const ChatBot = ({ open, openT }) => {
           </div>
           {/* {!response && */}
             <div className="mb-4">
-              <FileUpload files={files}/>
+              <FileUpload setFiles={setFiles}/>
             </div>
           {/* } */}
           {response &&
           <>
           <div className="flex flex-col p-2 pt-4 mb-4 gap-2 rounded-md shadow-md text-justify hover:bg-gray-400/25 hover:border-gray-200 overflow-y-scroll no-scrollbar">
             <p className="font-serif">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed
-              varius lorem. Fusce sed mi fermentum, aliquam lacus eget, pulvinar
-              ipsum. Curabitur quis feugiat diam, ac mattis nulla. In at
-              molestie metus, nec luctus dui. Pellentesque elit felis,
-              vestibulum in porttitor in, ullamcorper nec diam. Integer in nisi
-              ipsum. Donec ut cursus sapien. 
+              {query} 
             </p>
           </div>
           <div className="flex flex-col h-80 p-2 pt-4 mb-4 gap-2 rounded-md shadow-md text-justify hover:bg-gray-400/25 hover:border-gray-200 overflow-y-scroll no-scrollbar">

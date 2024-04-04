@@ -10,6 +10,7 @@ const Login = () => {
     password: ''
   });
   const [rememberMe, setRememberMe] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange= (e) => {
     setUser({
@@ -21,6 +22,10 @@ const Login = () => {
   const handleRememberMeChange = () => {
     setRememberMe(!rememberMe);
   };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  }
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('rememberedEmail');
@@ -83,7 +88,7 @@ const Login = () => {
                 required
                 value={user.email}
                 onChange={(e) => handleChange(e)}
-                className="block w-80 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-80 rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -96,25 +101,32 @@ const Login = () => {
               >
                 contraseña
               </label>
-              <div className="text-sm">
+              {/* <div className="text-sm">
                 <a
                   href="#"
                   className="font-semibold text-indigo-600 hover:text-indigo-500"
                 >
                   Olvido contraseña?
                 </a>
-              </div>
+              </div> */}
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 text-xs"
+              >
+                {showPassword ? "Ocultar" : "Mostrar"}
+              </button>
             </div>
             <div className="mt-2">
               <input
                 id="password"
                 name="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 autocomplete="current-password"
                 value={user.password}
                 onChange={handleChange}
                 required
-                className="block w-80 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-80 rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>

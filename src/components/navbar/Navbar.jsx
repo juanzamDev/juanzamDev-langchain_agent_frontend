@@ -7,6 +7,7 @@ const Navbar = () => {
   
   //local state
   const [state, setState] = useState(false);
+  const [activeLink, setActiveLink] = useState("");
 
   return (
     <nav className="bg-gray-800">
@@ -80,19 +81,22 @@ const Navbar = () => {
               <div className="flex space-x-4">
                 <Link
                   href="/"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  className={`text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium ${activeLink === "Inicio" && "underline"}`}
+                  onClick={() => setActiveLink("Inicio")}
                 >
                   Inicio
                 </Link>
                 <Link
                   href="/login"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  className={`text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium ${activeLink === "Ingresar" && "underline"}`}
+                  onClick={() => setActiveLink("Ingresar")}
                 >
                   Ingresar
                 </Link>
                 <Link
                   href="/register"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  className={`text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium ${activeLink === "Registrarse" && "underline"}`}
+                  onClick={() => setActiveLink("Registrarse")}
                 >
                   Registrarse
                 </Link>
@@ -123,19 +127,22 @@ const Navbar = () => {
         <div className="space-y-1 px-2 pb-3 pt-2">
           <Link
             href="/"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+            className={`text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium ${activeLink === "Inicio" && "underline"}`}
+            onClick={() => setActiveLink("Inicio")}
           >
             Inicio
           </Link>
           <Link
             href="/login"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+            className={`text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium ${activeLink === "Ingresar" && "underline"}`}
+            onClick={() => setActiveLink("Ingresar")}
           >
             Ingresar
           </Link>
           <Link
-            href="#"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+            href="/register"
+            className={`text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium ${activeLink === "Registrarse" && "underline"}`}
+            onClick={() => setActiveLink("Registrarse")}
           >
             Registrarse
           </Link>

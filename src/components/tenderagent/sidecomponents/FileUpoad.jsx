@@ -15,12 +15,11 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-function FileUpload({files}) {
+function FileUpload({ setFiles }) {
 
   const handleFileChange = (event) => {
     // const file = event.target.files[0]; 
-    files = event.target.files; 
-    console.log(files);
+     setFiles(event.target.files); 
   };
 
   return (
