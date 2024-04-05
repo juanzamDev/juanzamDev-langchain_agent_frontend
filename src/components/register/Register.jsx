@@ -2,15 +2,14 @@
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import SelectAgent from "./SelectAgent";
-import { getAgents, getAgentsTwo } from "@/app/api/createUser";
-import { getUsers } from "@/app/api/getUsers";
+import { createUser } from "@/app/api/createUser";
 
 const Register = () => {
 
   // local state
   const [user, setUser] = useState({
     name: '',
-    agent: '',
+    agent: [],
     email: '',
     password: ''
   });
@@ -33,22 +32,16 @@ const Register = () => {
   //   console.log(user);
   // };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    // if (user.name === '') {
-    //   setAlert(true);
-    //   return;
-    // }
-    // setAlert(false);
-    console.log(user);
+    try {
+      const response = await createUser(user); 
+      console.log(response);
+    } catch (error) {
+        console.error('Error al enviar los datos del usuario:', error);
+    }
   };
 
-  useEffect(()=>{
-    getAgents();
-    // getAgentsTwo();
-    getUsers();
-  },[])
-  
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 border-solid">
       {alert && 

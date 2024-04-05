@@ -20,7 +20,7 @@ const SideBar = ({ open }) => {
           />
           <h1 className=" text-xl ml-1 text-center">Agente Licitaciones</h1>
         </div>
-        <div className="h-60 w-64 mt-4  bg-gray-400/75 border-gray-500/75 hover:border-2 shadow-2xl rounded-md overflow-y-scroll no-scrollbar">
+        <div className="h-60 w-64 mt-4 bg-gray-400/75 border-gray-500/75 hover:border-2 shadow-2xl rounded-md overflow-y-scroll no-scrollbar">
           <div className="ml-2">
             <div className="mt-3">
               <h4 className=" text-sm font-serif mt-3">CONVERSACIONES ANTERIORES:</h4>
@@ -113,7 +113,7 @@ const SideBar = ({ open }) => {
         </div>
     </div>
     {/* Component movil */}
-    <div className={`flex-initial bg-gray-200 p-3 ${ !open ? "block" : "hidden"} sm:hidden w-68`}>
+    <div className={`flex-initial bg-gray-200 p-3 ${ !open ? "block w-full pl-20" : "hidden"} sm:hidden `}>
         <div className="m-2 gap-1 flex items-center rounded-sm">
           <Image
             src="/agent2.jpg"
@@ -190,7 +190,7 @@ const SideBar = ({ open }) => {
             <CarouselSideBar />
           </div>
         </div>
-        <div className="flex flex-col md:flex-row m-2 text-slate-300 font-bold text-sm md:text-md text-center pt-4">
+        <div className="flex flex-row m-2 text-slate-300 font-bold text-sm md:text-md text-center pt-4">
           <div className="">
             <p className=" hover:text-white">
               Descubre los beneficios de AI Project

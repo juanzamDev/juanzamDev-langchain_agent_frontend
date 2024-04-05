@@ -1,16 +1,13 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { getAgents } from "@/app/api/createUser";
 
 export default function SelectAgent({user, setUser}) {
-  const [personName, setPersonName] = React.useState([]);
-
-  const names = [
-    'Agente Pruebas',
-    'Agente Azure',
-    'Agente Licitaciones'
-  ];
+  const [personName, setPersonName] = useState([]);
+  const [agents, setAgents] = useState([]);
+  const names = agents;
 
   const handleChangeMultiple = (event) => {
     const { options } = event.target;
@@ -26,6 +23,19 @@ export default function SelectAgent({user, setUser}) {
     });
     setPersonName(value);
   };
+
+  useEffect(()=>{
+    const fetchData = async () => {
+      try {
+          const agentsData = await getAgents();
+          setAgents(agentsData)
+          // console.log(agentsData);
+      } catch (error) {
+          console.error('Error fetching agents:', error);
+      }
+    };
+    fetchData();
+  },[])
 
   return (
     <div>
