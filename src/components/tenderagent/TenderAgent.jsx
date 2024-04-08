@@ -5,18 +5,12 @@ import ButtonSideBar from "../buttons/ButtonSideBar";
 import ChatBot from "./sidecomponents/ChatBot";
 import Graphics from "./sidecomponents/Graphics";
 import ButtonSideBarT from "../buttons/ButtonSideBarT";
-// import { getUsers, getUsersTwo } from "@/app/api/getUsers";
 
 const TenderAgent = () => {
 
   // Local State
   const [open, setOpen] = useState(true);
   const [openT, setOpenT] = useState(true);
-
-  // useEffect(()=>{
-  //   getUsers()
-  //   getUsersTwo()
-  // },[])
 
   return (
     // <section className="container">

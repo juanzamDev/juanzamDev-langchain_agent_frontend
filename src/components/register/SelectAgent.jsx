@@ -19,7 +19,7 @@ export default function SelectAgent({user, setUser}) {
     }
     setUser({
         ...user,
-        agent: value
+        agents: value
     });
     setPersonName(value);
   };
@@ -29,7 +29,6 @@ export default function SelectAgent({user, setUser}) {
       try {
           const agentsData = await getAgents();
           setAgents(agentsData)
-          // console.log(agentsData);
       } catch (error) {
           console.error('Error fetching agents:', error);
       }
@@ -54,7 +53,7 @@ export default function SelectAgent({user, setUser}) {
             id: 'select-multiple-native',
           }}
         >
-          {names.map((name) => (
+          {names?.map((name) => (
             <option key={name} value={name}>
               {name}
             </option>

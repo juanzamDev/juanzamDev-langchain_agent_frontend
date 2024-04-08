@@ -12,13 +12,12 @@ export const getAgents = async() => {
 
 
 export const createUser = async(agentData) => {
-    console.log(agentData);
     try {
         const response = await axios.post("http://localhost:8002/signup", agentData);
         return response.data;
     } catch (error) {
         console.error(error);
-        throw error;
+        // throw error;
     }
 }
 
@@ -29,6 +28,6 @@ export const getAgentsTwo = async() => {
         .then(data => data)
         .catch(error => {
             console.error('Error fetching agents:', error);
-            throw error;
+            // throw error;
         });
 }
