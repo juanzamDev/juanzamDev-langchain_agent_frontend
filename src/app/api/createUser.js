@@ -1,8 +1,10 @@
-import axios from "axios"
+import axiosClient from "@/config/AxiosClient"
+// import axios from "axios"
 
 export const getAgents = async() => {
     try{
-        const response = await axios.get("http://localhost:8002/getAgents")
+        const response = await axiosClient.get("/getAgents")
+        console.log(response);
         return response.data
         // .then((response) => console.log(response.data))
     }catch(error){
@@ -13,7 +15,7 @@ export const getAgents = async() => {
 
 export const createUser = async(agentData) => {
     try {
-        const response = await axios.post("http://localhost:8002/signup", agentData);
+        const response = await axiosClient.post("/signup", agentData);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -22,12 +24,12 @@ export const createUser = async(agentData) => {
 }
 
 
-export const getAgentsTwo = async() => {
-    return await fetch("http://localhost:8002/getAgents")
-        .then((response) => response.json())
-        .then(data => data)
-        .catch(error => {
-            console.error('Error fetching agents:', error);
-            // throw error;
-        });
-}
+// export const getAgentsTwo = async() => {
+//     return await fetch("http://localhost:8002/getAgents")
+//         .then((response) => response.json())
+//         .then(data => data)
+//         .catch(error => {
+//             console.error('Error fetching agents:', error);
+//             // throw error;
+//         });
+// }
