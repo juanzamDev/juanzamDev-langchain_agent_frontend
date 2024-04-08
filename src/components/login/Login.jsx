@@ -104,7 +104,7 @@ const Login = () => {
         <form className="space-y-6" onSubmit={(e) => handleSubmit(e)}>
           <div>
             <label
-              for="email"
+              htmlFor="email"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               Correo electrónico
@@ -126,7 +126,7 @@ const Login = () => {
           <div>
             <div className="flex items-center justify-between w-80">
               <label
-                for="password"
+                htmlFor="password"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 contraseña
