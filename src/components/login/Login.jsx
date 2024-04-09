@@ -1,13 +1,23 @@
 "use client";
+import { loginUser } from "@/app/api/createUser";
 import Image from "next/image";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
 const Login = () => {
 
+  const router = useRouter();
   // local state
+  const [user, setUser] = useState({
+    email: '',
+    password: ''
+  });
+  const [rememberMe, setRememberMe] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [alertLoginFalse, setAlertLoginFalse] = useState(false);
   const [alertTrue, setAlertTrue] = useState(false);
   const [message, setMessage] = useState("");
+  const [answer, setAnswer] = useState(false);
 
     useEffect(() => {
     const messageFromStorage = localStorage.getItem("message");
@@ -22,14 +32,6 @@ const Login = () => {
       return () => clearTimeout(timeout);
     }
   }, []);
-
-  // local state
-  const [user, setUser] = useState({
-    email: '',
-    password: ''
-  });
-  const [rememberMe, setRememberMe] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange= (e) => {
     setUser({
@@ -69,9 +71,26 @@ const Login = () => {
     }
   }, [rememberMe, user]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log("Submit");
+    // console.log(rememberMe);
+    // console.log(user);
+    try {
+      const response = await loginUser(user);
+      if(response.success === true){
+        // localStorage.setItem("login", response.message);
+        localStorage.setItem("isLoggedIn", true);
+        router.push('/agents');
+      }else if(response.success === false){
+        setAlertLoginFalse(true);
+        setAnswer(response.message)
+      }else{
+        console.log("error autenticación")
+      }
+    }catch (error) {
+      console.log("error al iniciar sesión",error)
+    }
+
   };
   
   return (
@@ -79,15 +98,7 @@ const Login = () => {
      
     <div className="flex min-h-full flex-col justify-center px-6 py-4 lg:px-8 border-solid">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm ">
-      {alertTrue && 
-        <div class="bg-green-900 text-center py-3 -ml-10 ">
-          <div class="p-2 bg-green-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
-            <span class="flex rounded-full bg-green-500 uppercase px-2 py-1 text-xs font-bold mr-3">success</span>
-            <span class="font-semibold mr-2 text-left flex-auto">{message}</span>
-            <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
-          </div>
-        </div>
-      }
+      
         <Image
           src="/impre.png"
           alt="Vercel Logo"
@@ -99,8 +110,26 @@ const Login = () => {
         <h2 className="mt-2 leading-9 tracking-tight text-gray-900">
           Inicia sesión para continuar
         </h2>
+        {alertTrue && 
+        <div class="bg-green-900 text-center py-3 -ml-10 ">
+          <div class="p-2 bg-green-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+            <span class="flex rounded-full bg-green-500 uppercase px-2 py-1 text-xs font-bold mr-3">exitoso</span>
+            <span class="font-semibold mr-2 text-left flex-auto">{message}</span>
+            <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
+          </div>
+        </div>
+      }
+      {alertLoginFalse &&
+        <div class="bg-red-900 text-center py-4 lg:px-4 mb-2 mt-3 -ml-10 rounded-md">
+          <div class="p-2 bg-red-800 items-center text-black leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+            <span class="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs font-bold mr-3">Alerta</span>
+            <span class="font-semibold mr-2 text-left flex-auto text-black/75">{answer} </span>
+            <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
+          </div>
+        </div>
+      }
       </div>
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={(e) => handleSubmit(e)}>
           <div>
             <label
@@ -114,7 +143,7 @@ const Login = () => {
                 id="email"
                 name="email"
                 type="email"
-                autocomplete="email"
+                autoComplete="email"
                 required
                 value={user.email}
                 onChange={(e) => handleChange(e)}
@@ -152,7 +181,7 @@ const Login = () => {
                 id="password"
                 name="password"
                 type={showPassword ? "text" : "password"}
-                autocomplete="current-password"
+                autoComplete="current-password"
                 value={user.password}
                 onChange={handleChange}
                 required
@@ -182,16 +211,6 @@ const Login = () => {
             </button>
           </div>
         </form>
-
-        {/* <p className="mt-10 text-center text-sm text-gray-500">
-        © 2024 Solución VictorIA - Impresistem
-          <a
-            href="#"
-            className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          >
-            Start a 14 day free trial
-          </a>
-        </p> */}
       </div>
     </div>
     </>

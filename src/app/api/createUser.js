@@ -24,6 +24,17 @@ export const createUser = async(agentData) => {
 }
 
 
+export const loginUser = async(agentData) => {
+    try {
+        const response = await axiosClient.post("/login", agentData);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        // throw error;
+    }
+}
+
+
 // export const getAgentsTwo = async() => {
 //     return await fetch("http://localhost:8002/getAgents")
 //         .then((response) => response.json())
