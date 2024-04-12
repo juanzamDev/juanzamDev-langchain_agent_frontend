@@ -1,13 +1,35 @@
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+
+  // Router
+  const router = useRouter();
   
   //local state
   const [state, setState] = useState(false);
-  const [activeLink, setActiveLink] = useState("");
+  const [activeLink, setActiveLink] = useState("Inicio");
+  const [isLoggedIn,setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("isLoggedIn");
+    setIsLoggedIn(loggedIn);
+    setActiveLink("Perfil");
+  }, []);
+
+  useEffect(() => {
+    setState(prevState => !prevState);
+  }, [isLoggedIn]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+    setActiveLink("Inicio")
+    router.push("/");
+  };
 
   return (
     <nav className="bg-gray-800">
@@ -23,14 +45,14 @@ const Navbar = () => {
               aria-expanded="false"
             >
               <span className="absolute -inset-0.5 "></span>
-              <span className="sr-only">Open main menu</span>
+              {/* <span className="sr-only">Open main menu</span> */}
               {/* 
             Icon when menu is closed.
 
             Menu open: "hidden", Menu closed: "block"
              */}
               <svg
-                className={ `${ !state ? 'block' : 'hidden'} h-6 w-6`}
+                className={ `${state ? 'block' : 'hidden'} h-6 w-6`}
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
@@ -49,7 +71,7 @@ const Navbar = () => {
             Menu open: "block", Menu closed: "hidden"
           --> */}
               <svg
-                className={`${ !state? 'hidden': 'block'} h-6 w-6`}
+                className={`${state? 'hidden': 'block'} h-6 w-6`}
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
@@ -86,20 +108,40 @@ const Navbar = () => {
                 >
                   Inicio
                 </Link>
-                <Link
-                  href="/login"
-                  className={`text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium ${activeLink === "Ingresar" && "underline"}`}
-                  onClick={() => setActiveLink("Ingresar")}
-                >
-                  Ingresar
-                </Link>
-                <Link
-                  href="/register"
-                  className={`text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium ${activeLink === "Registrarse" && "underline"}`}
-                  onClick={() => setActiveLink("Registrarse")}
-                >
-                  Registrarse
-                </Link>
+                {isLoggedIn ? (
+                  <>
+                    <Link
+                      href="/agents"
+                      className={`text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium ${activeLink === "Perfil" && "underline"}`}
+                      onClick={() => setActiveLink("Perfil")}
+                    >
+                      Perfil
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    >
+                      Salir
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/login"
+                      className={`text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium ${activeLink === "Ingresar" && "underline"}`}
+                      onClick={() => setActiveLink("Ingresar")}
+                    >
+                      Ingresar
+                    </Link>
+                    <Link
+                      href="/register"
+                      className={`text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium ${activeLink === "Registrarse" && "underline"}`}
+                      onClick={() => setActiveLink("Registrarse")}
+                    >
+                      Registrarse
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -123,7 +165,7 @@ const Navbar = () => {
         </div>
       </div>
       {/* Mobile menu, show/hide based on menu state. */}
-      <div className="sm:hidden" id="mobile-menu" style={{display: !state ? 'none' : ''}}>
+      <div className="sm:hidden" id="mobile-menu" style={{display: state ? 'none' : ''}}>
         <div className="space-y-1 px-2 pb-3 pt-2">
           <Link
             href="/"
@@ -132,20 +174,40 @@ const Navbar = () => {
           >
             Inicio
           </Link>
-          <Link
-            href="/login"
-            className={`text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium ${activeLink === "Ingresar" && "underline"}`}
-            onClick={() => setActiveLink("Ingresar")}
-          >
-            Ingresar
-          </Link>
-          <Link
-            href="/register"
-            className={`text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium ${activeLink === "Registrarse" && "underline"}`}
-            onClick={() => setActiveLink("Registrarse")}
-          >
-            Registrarse
-          </Link>
+          {isLoggedIn ? (
+            <>
+              <Link
+                href="/agents"
+                className={`text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium ${activeLink === "Perfil" && "underline"}`}
+                onClick={() => setActiveLink("Perfil")}
+              >
+                Perfil
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+              >
+                Salir
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className={`text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium ${activeLink === "Ingresar" && "underline"}`}
+                onClick={() => setActiveLink("Ingresar")}
+              >
+                Ingresar
+              </Link>
+              <Link
+                href="/register"
+                className={`text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium ${activeLink === "Registrarse" && "underline"}`}
+                onClick={() => setActiveLink("Registrarse")}
+              >
+                Registrarse
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>
