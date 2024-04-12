@@ -23,10 +23,18 @@ const Agents = () => {
     //         }
     //     ]
     // }
+
     useEffect(()=>{
         const infoAgents = localStorage.getItem("agents")
         setUser(localStorage.getItem("user"))
         setAgents(JSON.parse(infoAgents))
+        const refresh = localStorage.getItem("refresh");
+        if(refresh){
+            setTimeout(() => {
+              window.location.reload();
+              localStorage.removeItem("refresh");
+            }, 400);
+          }
     },[])
 
     return (

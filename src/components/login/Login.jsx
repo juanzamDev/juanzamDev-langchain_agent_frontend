@@ -28,6 +28,7 @@ const Login = () => {
         setMessage("");
         setAlertTrue(false);
         localStorage.removeItem("message");
+        localStorage.removeItem("refresh");
       }, 4000);
       return () => clearTimeout(timeout);
     }
@@ -78,14 +79,11 @@ const Login = () => {
     try {
       const response = await loginUser(user);
       if(response.success === true){
-        localStorage.setItem("login", true);
+        localStorage.setItem("refresh", true);
         localStorage.setItem("isLoggedIn", true);
         localStorage.setItem("agents", JSON.stringify(response.agents));
         localStorage.setItem("user", response.username);
         router.push('/agents');
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
       }else if(response.success === false){
         setAlertLoginFalse(true);
         setAnswer(response.message)

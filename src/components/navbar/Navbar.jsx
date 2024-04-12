@@ -11,7 +11,7 @@ const Navbar = () => {
   
   //local state
   const [state, setState] = useState(false);
-  const [activeLink, setActiveLink] = useState("Inicio");
+  const [activeLink, setActiveLink] = useState("");
   const [isLoggedIn,setIsLoggedIn] = useState(false)
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
-    setActiveLink("Inicio")
+    setActiveLink("Inicio");
     router.push("/");
   };
 
