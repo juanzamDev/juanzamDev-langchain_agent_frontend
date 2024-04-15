@@ -1,13 +1,20 @@
 "use client";
 import { loginUser } from "@/app/api/createUser";
+import { getInfo } from "@/redux/features/userSlice";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
 
+  // Dispatch instance
+  const dispatch = useDispatch() 
+
+  // Router
   const router = useRouter();
-  // local state
+  
+  // Local state
   const [user, setUser] = useState({
     email: '',
     password: ''
@@ -19,7 +26,8 @@ const Login = () => {
   const [message, setMessage] = useState("");
   const [answer, setAnswer] = useState(false);
 
-    useEffect(() => {
+  // User created success
+  useEffect(() => {
     const messageFromStorage = localStorage.getItem("message");
     if (messageFromStorage === "Usuario registrado con éxito") {
       setMessage(messageFromStorage);
@@ -34,6 +42,7 @@ const Login = () => {
     }
   }, []);
 
+  // Last value state user
   const handleChange= (e) => {
     setUser({
       ...user,
@@ -41,14 +50,17 @@ const Login = () => {
     })
   }
 
+  // Remember function
   const handleRememberMeChange = () => {
     setRememberMe(!rememberMe);
   };
 
+  // Show/hide password function
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   }
 
+  // Remember or not user
   useEffect(() => {
     const storedEmail = localStorage.getItem('rememberedEmail');
     const storedPassword = localStorage.getItem('rememberedPassword');
@@ -62,6 +74,7 @@ const Login = () => {
     }
   }, []);
 
+  // Remember storage
   useEffect(() => {
     if (rememberMe) {
       localStorage.setItem('rememberedEmail', user.email);
@@ -72,13 +85,13 @@ const Login = () => {
     }
   }, [rememberMe, user]);
 
+  // Request login
   const handleSubmit = async(e) => {
     e.preventDefault();
-    // console.log(rememberMe);
-    // console.log(user);
     try {
       const response = await loginUser(user);
       if(response.success === true){
+        dispatch(getInfo(response))
         localStorage.setItem("refresh", true);
         localStorage.setItem("isLoggedIn", true);
         localStorage.setItem("agents", JSON.stringify(response.agents));
@@ -98,10 +111,8 @@ const Login = () => {
   
   return (
     <>
-     
     <div className="flex min-h-full flex-col justify-center px-6 py-4 lg:px-8 border-solid">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm ">
-      
         <Image
           src="/impre.png"
           alt="Vercel Logo"
@@ -121,16 +132,16 @@ const Login = () => {
             <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
           </div>
         </div>
-      }
-      {alertLoginFalse &&
-        <div class="bg-red-900 text-center py-4 lg:px-4 mb-2 mt-3 -ml-10 rounded-md">
-          <div class="p-2 bg-red-800 items-center text-black leading-none lg:rounded-full flex lg:inline-flex" role="alert">
-            <span class="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs font-bold mr-3">Alerta</span>
-            <span class="font-semibold mr-2 text-left flex-auto text-black/75">{answer} </span>
-            <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
+        }
+        {alertLoginFalse &&
+          <div class="bg-red-900 text-center py-4 lg:px-4 mb-2 mt-3 -ml-10 rounded-md">
+            <div class="p-2 bg-red-800 items-center text-black leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+              <span class="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs font-bold mr-3">Alerta</span>
+              <span class="font-semibold mr-2 text-left flex-auto text-black/75">{answer} </span>
+              <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
+            </div>
           </div>
-        </div>
-      }
+        }
       </div>
       <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={(e) => handleSubmit(e)}>
@@ -154,7 +165,6 @@ const Login = () => {
               />
             </div>
           </div>
-
           <div>
             <div className="flex items-center justify-between w-80">
               <label

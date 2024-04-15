@@ -1,10 +1,8 @@
 import axiosClient from "@/config/AxiosClient"
-// import axios from "axios"
 
 export const getAgents = async() => {
     try{
         const response = await axiosClient.get("/getAgents")
-        console.log(response);
         return response.data
         // .then((response) => console.log(response.data))
     }catch(error){
@@ -19,7 +17,7 @@ export const createUser = async(agentData) => {
         return response.data;
     } catch (error) {
         console.error(error);
-        // throw error;
+        throw error;
     }
 }
 
@@ -30,7 +28,7 @@ export const loginUser = async(agentData) => {
         return response.data;
     } catch (error) {
         console.error(error);
-        // throw error;
+        throw error;
     }
 }
 

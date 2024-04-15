@@ -8,7 +8,9 @@ import Link from "next/link";
 
 const Register = () => {
 
+  // Router instance
   const router = useRouter();
+
   // local state
   const [user, setUser] = useState({
     name: '',
@@ -21,10 +23,12 @@ const Register = () => {
   const [alertTrue, setAlertTrue] = useState(false);
   const [answer, setAnswer] = useState(false);
 
+  // Show/hide password
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   }
 
+  // last value states user
   const handleChange= (e) => {
     setUser({
       ...user,
@@ -32,6 +36,7 @@ const Register = () => {
     })
   }
 
+  // Request create user
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {

@@ -5,10 +5,13 @@ import Select from '@mui/material/Select';
 import { getAgents } from "@/app/api/createUser";
 
 export default function SelectAgent({user, setUser}) {
+
+  // local state
   const [personName, setPersonName] = useState([]);
   const [agents, setAgents] = useState([]);
   const names = agents;
 
+  // Agents selection
   const handleChangeMultiple = (event) => {
     const { options } = event.target;
     const value = [];
@@ -24,6 +27,7 @@ export default function SelectAgent({user, setUser}) {
     setPersonName(value);
   };
 
+  // Get agents info 
   useEffect(()=>{
     const fetchData = async () => {
       try {

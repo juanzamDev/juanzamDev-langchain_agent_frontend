@@ -3,38 +3,16 @@ import React, { useEffect, useState } from 'react';
 import CardAgents from './Card';
 
 const Agents = () => {
-    const [ agents, setAgents] = useState([])
-    const [ user, setUser] = useState([])
-    
-    // const userInfo = {
-    //     username: "carlos.lerolle",
-    //     agents:[
-    //         {
-    //             agent: "Agente Azure",
-    //             description: "Un asesor de ventas que orienta al cliente sobre características y precios de máquinas virtuales de Azure según sus necesidades."
-    //         },
-    //         { 
-    //             agent: "Agente Licitaciones",
-    //             description: "Un asistente legal que ayuda a los usuarios a estudiar, analizar y resumir documentos de procesos licitatorios para encontrar infromación relevante y responder preguntas sobre estos."
-    //         }, 
-    //         {
-    //             agent: "Agente Pruebas",
-    //             description: "Descripción del proposito y configuración del agente de pruebas para mostrar en el portal web de VictorIA."
-    //         }
-    //     ]
-    // }
 
+    // Local state
+    const [ agents, setAgents] = useState([]);
+    const [ user, setUser] = useState([]);
+
+    // logged user info 
     useEffect(()=>{
         const infoAgents = localStorage.getItem("agents")
         setUser(localStorage.getItem("user"))
         setAgents(JSON.parse(infoAgents))
-        const refresh = localStorage.getItem("refresh");
-        if(refresh){
-            setTimeout(() => {
-              window.location.reload();
-              localStorage.removeItem("refresh");
-            }, 400);
-          }
     },[])
 
     return (

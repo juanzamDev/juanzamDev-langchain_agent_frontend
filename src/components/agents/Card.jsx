@@ -49,12 +49,6 @@ export default function CardAgents({agent}) {
         subheader=""
       />
       <h1 className='ml-5 font-bold'>{agent.agent}</h1>
-      {/* <CardMedia
-        component="img"
-        height="194"
-        image="/"
-        alt="Agente Azure"
-      /> */}
       <CardContent>
         <h1 >
           {agent.description}

@@ -3,8 +3,12 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+
+  // Redux state extraction
+  const info = useSelector(state => state.info)
 
   // Router
   const router = useRouter();
@@ -14,16 +18,26 @@ const Navbar = () => {
   const [activeLink, setActiveLink] = useState("");
   const [isLoggedIn,setIsLoggedIn] = useState(false)
 
+  // Login successful
   useEffect(() => {
     const loggedIn = localStorage.getItem("isLoggedIn");
     setIsLoggedIn(loggedIn);
-    setActiveLink("Perfil");
+    setActiveLink("Inicio");
   }, []);
 
+  // Check last state
   useEffect(() => {
     setState(prevState => !prevState);
   }, [isLoggedIn]);
+  
+  useEffect(()=>{
+    if(info.user.message === "Credenciales validas, bienvenido"){
+      setIsLoggedIn(true);
+      setActiveLink("Perfil")
+    }
+  },[info])
 
+  // Request Logout
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
