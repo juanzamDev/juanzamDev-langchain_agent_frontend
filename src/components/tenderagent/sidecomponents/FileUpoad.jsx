@@ -29,7 +29,7 @@ function FileUpload({ setFiles }) {
       variant="contained"
       tabIndex={-1}
       startIcon={<CloudUploadIcon />}
-      className=' bg-blue-gray-700 hover:bg-blue-gray-900'
+      // className=' bg-blue-gray-700 hover:bg-blue-gray-900'
     >
       Subir Archivos
       <VisuallyHiddenInput type="file" onChange={handleFileChange} multiple />
