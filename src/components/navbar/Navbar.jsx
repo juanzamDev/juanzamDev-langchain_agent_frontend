@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const Navbar = () => {
 
   // Redux state extraction
-  const info = useSelector(state => state.info)
+  const user = useSelector(state => state.user);
 
   // Router
   const router = useRouter();
@@ -31,11 +31,11 @@ const Navbar = () => {
   }, [isLoggedIn]);
   
   useEffect(()=>{
-    if(info.user.message === "Credenciales validas, bienvenido"){
+    if(user.message === "Credenciales validas, bienvenido"){
       setIsLoggedIn(true);
       setActiveLink("Perfil")
     }
-  },[info])
+  },[user])
 
   // Request Logout
   const handleLogout = () => {

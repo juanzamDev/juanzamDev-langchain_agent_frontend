@@ -1,6 +1,6 @@
 "use client";
 import { loginUser } from "@/app/api/createUser";
-import { getInfo } from "@/redux/features/userSlice";
+import { loginInfo } from "@/redux/features/userSlice";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
@@ -91,7 +91,7 @@ const Login = () => {
     try {
       const response = await loginUser(user);
       if(response.success === true){
-        dispatch(getInfo(response))
+        dispatch(loginInfo(response))
         localStorage.setItem("refresh", true);
         localStorage.setItem("isLoggedIn", true);
         localStorage.setItem("agents", JSON.stringify(response.agents));
