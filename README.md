@@ -1,53 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Introduction 
 
-## Getting Started
+This is the frontend in React JS for a program that utilizes natural language models (LLMs) based on the Azure OpenAI API to perform various tasks related to data segmentation, confirmation, and selection. It is built using the LangChain library, which facilitates interaction and management of language models.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Integration with Azure OpenAI**: Connects to GPT-3.5 and GPT-4 deployments on Azure, enabling complex tasks based on natural language.
+- **Processing Chains**: Uses `LLMChain` to manage processing flows and custom prompts for efficient querying and segmentation.
+- **Vector Storage and Search**: Implements **FAISS** for storing vector representations of data and performing searches based on semantic similarity.
+- **Custom Prompts**: Structures interactions with the model using prompts that handle various tasks like segmentation, option confirmation, and data selection.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. Clone this repository.
+2. Install the dependencies:
+   nodejs: [Node installation](https://nodejs.org/en/download/package-manager)
+3. Install libraries:
+   ```sh
+    npm install
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Usage
 
-## Learn More
+1. **Run the main application**:
+    ```sh
+    npm run dev
+    ```
+2. **Open in your web browser the local url**:
+    ```sh
+    http://localhost:3000
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+## Contribute
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Feel free to open issues or submit pull requests if you have suggestions or improvements.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-
-# Run V1ctorIA Project
-
-
-1. **install libraries**
-- npm install
-
-
-2. **run local**
-- npm run dev
-
-3. **create docker image**
-- docker build -t victoriafront .
-
-3.2. **run docker**
-- docker run -p 3000:3000 victoriafront
+This project is licensed under the MIT License.
